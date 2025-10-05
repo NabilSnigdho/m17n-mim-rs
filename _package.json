@@ -1,0 +1,31 @@
+{
+  "name": "m17n-mim",
+  "version": "0.1.0",
+  "description": "Parser and converter for the M17N .mim input method format.",
+  "keywords": [
+    "m17n"
+  ],
+  "homepage": "https://github.com/NabilSnigdho/m17n-mim-rs#readme",
+  "bugs": {
+    "url": "https://github.com/NabilSnigdho/m17n-mim-rs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NabilSnigdho/m17n-mim-rs.git"
+  },
+  "license": "LGPL-2.1-or-later",
+  "author": "S. Mahmud Nabil",
+  "type": "module",
+  "module": "m17n_mim_rs.js",
+  "types": "m17n_mim_rs.d.ts",
+  "files": [
+    "m17n_mim_rs.js",
+    "m17n_mim_rs.d.ts",
+    "m17n_mim_rs_bg.js",
+    "m17n_mim_rs_bg.wasm",
+    "m17n_mim_rs_bg.wasm.d.ts"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

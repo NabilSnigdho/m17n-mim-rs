@@ -1,9 +1,9 @@
 [package]
-name = "m17n-mim-rs"
+name = "m17n_mim_rs"
 version = "0.1.0"
 edition = "2024"
-description = "String conversion library with rule parsing"
-license = "MIT"
+description = "Parser and converter for the M17N .mim input method format."
+license = "LGPL-2.1-or-later"
 authors = ["S. Mahmud Nabil <nabilsnigdho@gmail.com>"]
 
 [lib]

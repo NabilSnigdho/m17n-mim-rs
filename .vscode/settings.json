@@ -1,11 +1,20 @@
 {
     "cSpell.words": [
+        "AIST",
+        "binaryen",
         "bindgen",
         "cdylib",
+        "endswith",
+        "gsub",
         "KEYSEQ",
+        "listdir",
         "Mahmud",
+        "merror",
+        "Munnelly",
         "Nabil",
         "peekable",
-        "rlib"
+        "rlib",
+        "rustc",
+        "rustup"
     ]
 }

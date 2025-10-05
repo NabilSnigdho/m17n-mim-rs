@@ -1,3 +1,9 @@
+// Copyright (C) 2025 Mahmud Nabil
+// Portions derived from the M17N library
+//   Copyright (C) 2003–2012 AIST (H15PRO112)
+// Licensed under the GNU Lesser General Public License v2.1 or later.
+// See the LICENSE file for full terms.
+
 use crate::lisp_parser::Element;
 use fst::Map;
 use std::collections::HashMap;
