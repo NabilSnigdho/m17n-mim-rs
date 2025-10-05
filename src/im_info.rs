@@ -9,15 +9,21 @@ use fst::Map;
 use std::collections::HashMap;
 
 #[derive(Debug)]
-pub struct KeySeqMap {
+pub struct KeySeqRuleMap {
     pub fst: Map<Vec<u8>>,
-    pub values: Vec<Element>,
+    pub rules: Vec<Element>,
+}
+
+#[derive(Debug)]
+pub struct Branch {
+    pub map_name: String,
+    pub actions: Vec<Element>,
 }
 
 #[derive(Debug)]
 pub struct State {
     pub name: String,
-    pub actions: Vec<Element>,
+    pub branches: Vec<Branch>,
 }
 
 pub struct ImInfo {
@@ -25,7 +31,7 @@ pub struct ImInfo {
     pub name: String,
     pub title: String,
     pub description: String,
-    pub maps: HashMap<String, KeySeqMap>,
+    pub maps: HashMap<String, KeySeqRuleMap>,
     pub states: Vec<State>,
 }
 
@@ -89,7 +95,7 @@ pub fn load_im_info(parsed_mim: Element) -> ImInfo {
     }
 }
 
-fn parse_maps(map_elements: &[Element]) -> HashMap<String, KeySeqMap> {
+fn parse_maps(map_elements: &[Element]) -> HashMap<String, KeySeqRuleMap> {
     let mut maps = HashMap::new();
 
     for element in map_elements {
@@ -134,7 +140,7 @@ fn parse_maps(map_elements: &[Element]) -> HashMap<String, KeySeqMap> {
                     let fst_bytes = builder.into_inner().unwrap();
                     let fst = Map::new(fst_bytes).unwrap();
 
-                    maps.insert(map_name.clone(), KeySeqMap { fst, values });
+                    maps.insert(map_name.clone(), KeySeqRuleMap { fst, rules: values });
                 }
             }
         }
@@ -154,8 +160,20 @@ fn parse_states(state_elements: &[Element]) -> Vec<State> {
 
             if let Element::Symbol(state_name) = &state_def[0] {
                 // Store branches as a list
-                let branches = state_def[1..].to_vec();
-                states.push(State{ name: state_name.to_string(), actions: branches });
+                let mut branches = Vec::new();
+                for element in state_def[1..].to_vec() {
+                    if let Element::List(branch_def) = element {
+                        if branch_def.is_empty() {
+                            continue;
+                        }
+
+                        if let Element::Symbol(map_name) = &branch_def[0] {
+                            let actions = branch_def[1..].to_vec();
+                            branches.push(Branch{ map_name: map_name.to_string(), actions });
+                        }
+                    }
+                }
+                states.push(State{ name: state_name.to_string(), branches });
             }
         }
     }

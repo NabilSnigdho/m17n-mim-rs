@@ -1,20 +1,26 @@
 {
     "cSpell.words": [
+        "abxyz",
         "AIST",
         "binaryen",
         "bindgen",
+        "capslock",
         "cdylib",
         "endswith",
         "gsub",
         "KEYSEQ",
+        "keysym",
         "listdir",
         "Mahmud",
         "merror",
         "Munnelly",
         "Nabil",
         "peekable",
+        "preedit",
         "rlib",
         "rustc",
-        "rustup"
+        "rustup",
+        "titlecase",
+        "toupper"
     ]
 }
