@@ -108,48 +108,42 @@ impl Context {
 
         let state = state.unwrap();
 
+        let mut best_match = 0;
+        let mut best_map_actions = None;
+        let mut best_branch_actions = None;
         // Try to match against each map in the state
         for branch in &state.branches {
             if let Some(keyseq_map) = im_info.maps.get(&branch.map_name) {
                 // Try to find longest matching key sequence
-                let matched = self.match_keys(keyseq_map, remaining );
-                if matched > 0 {
-                    // Execute branch actions (elements after map name)
-                    for i in 1..branch.actions.len() {
-                        self.execute_action(&branch.actions[i]);
+                for len in 1..=remaining.len().min(10) {
+                    let key_str: String = remaining[..len].iter().collect();
+                    let key_bytes = key_str.as_bytes();
+
+                    // Check if this key sequence exists in the FST
+                    if let Some(idx) = keyseq_map.fst.get(key_bytes) && len > best_match {
+                        best_match = len;
+                        best_map_actions = keyseq_map.rules.get(idx as usize);
+                        best_branch_actions = Some(&branch.actions);
                     }
-                    return matched;
                 }
-            }
-        }
-
-        0
-    }
-
-    fn match_keys(&mut self, keyseq_map: &KeySeqRuleMap, keys: &[char]) -> usize {
-        let mut best_match = 0;
-        let mut best_actions = None;
-
-        // Try progressively longer key sequences
-        for len in 1..=keys.len().min(10) {
-            let key_str: String = keys[..len].iter().collect();
-            let key_bytes = key_str.as_bytes();
-
-            // Check if this key sequence exists in the FST
-            if let Some(idx) = keyseq_map.fst.get(key_bytes) {
-                best_match = len;
-                best_actions = keyseq_map.rules.get(idx as usize);
             }
         }
 
         // Execute the map actions for the best match
-        if let Some(actions) = best_actions {
-            if let Element::List(action_list) = actions {
+        if let Some(map_actions) = best_map_actions {
+            if let Element::List(action_list) = map_actions {
                 for action in action_list {
                     self.execute_action(action);
                 }
             } else {
-                self.execute_action(actions);
+                self.execute_action(map_actions);
+            }
+        }
+
+        // Execute the branch actions for the best match
+        if let Some(branch_actions) = best_branch_actions {
+            for branch_action in branch_actions {
+                self.execute_action(&branch_action);
             }
         }
 

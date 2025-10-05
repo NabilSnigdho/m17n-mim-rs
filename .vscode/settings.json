@@ -10,6 +10,7 @@
         "gsub",
         "KEYSEQ",
         "keysym",
+        "khipro",
         "listdir",
         "Mahmud",
         "merror",
@@ -17,9 +18,11 @@
         "Nabil",
         "peekable",
         "preedit",
+        "reqwest",
         "rlib",
         "rustc",
         "rustup",
+        "serde",
         "titlecase",
         "toupper"
     ]
