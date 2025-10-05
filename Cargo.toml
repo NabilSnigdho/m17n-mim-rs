@@ -1,0 +1,14 @@
+[package]
+name = "m17n-mim-rs"
+version = "0.1.0"
+edition = "2024"
+description = "String conversion library with rule parsing"
+license = "MIT"
+authors = ["S. Mahmud Nabil <nabilsnigdho@gmail.com>"]
+
+[lib]
+crate-type = ["cdylib", "rlib"]  # allows both wasm + normal lib builds
+
+[dependencies]
+fst = "0.4.7"
+wasm-bindgen = "0.2"
