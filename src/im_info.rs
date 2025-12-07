@@ -120,6 +120,10 @@ fn parse_maps(map_elements: &[Element]) -> HashMap<String, KeySeqRuleMap> {
                         // MAP-ACTIONs are the remaining elements
                         let actions = Element::List(rule_parts[1..].to_vec());
 
+                        if keys.contains(&keyseq) {
+                            continue;
+                        }
+
                         keys.push(keyseq);
                         values.push(actions);
                     }

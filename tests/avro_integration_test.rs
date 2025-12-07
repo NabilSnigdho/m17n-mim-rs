@@ -3,39 +3,20 @@ use serde_json::Value;
 use std::fs;
 
 #[tokio::test]
-async fn test_khipro_mim_with_remote_file() {
-    // Fetch the remote MIM file
-    let url =
-        "https://raw.githubusercontent.com/rank-coder/khipro-m17n/refs/heads/main/bn-khipro.mim";
-    let client = reqwest::Client::new();
-
-    let response = client
-        .get(url)
-        .send()
-        .await
-        .expect("Failed to fetch remote MIM file");
-
-    assert!(
-        response.status().is_success(),
-        "Failed to fetch MIM file: {}",
-        response.status()
-    );
-
-    let mim_content = response
-        .text()
-        .await
-        .expect("Failed to read MIM file content");
+async fn test_avro_mim_with_remote_file() {
+    let mim_content = fs::read_to_string("/home/nabil/Documents/nabilsnigdho/m17n-mim-rs/tests/bn-avro.mim")
+        .expect("Failed to read local MIM file");
 
     // Create M17nMim instance with the fetched content
     let mim = M17nMim::new(&mim_content);
 
     // Verify basic MIM properties
     assert_eq!(mim.get_lang(), "bn");
-    assert_eq!(mim.get_name(), "khipro");
+    assert_eq!(mim.get_name(), "avro");
 
     // Load test cases from JSON file
     let test_cases_content =
-        fs::read_to_string("tests/khipro_test_cases.json").expect("Failed to read test cases file");
+        fs::read_to_string("tests/avro_test_cases.json").expect("Failed to read test cases file");
 
     let test_cases: Value =
         serde_json::from_str(&test_cases_content).expect("Failed to parse test cases JSON");
@@ -131,28 +112,15 @@ async fn test_khipro_mim_with_remote_file() {
 
 #[tokio::test]
 async fn test_mim_basic_properties() {
-    // Fetch the remote MIM file
-    let url =
-        "https://raw.githubusercontent.com/rank-coder/khipro-m17n/refs/heads/main/bn-khipro.mim";
-    let client = reqwest::Client::new();
-
-    let response = client
-        .get(url)
-        .send()
-        .await
-        .expect("Failed to fetch remote MIM file");
-
-    let mim_content = response
-        .text()
-        .await
-        .expect("Failed to read MIM file content");
+    let mim_content = fs::read_to_string("/home/nabil/Documents/nabilsnigdho/m17n-mim-rs/tests/bn-avro.mim")
+        .expect("Failed to read local MIM file");
 
     // Create M17nMim instance
     let mim = M17nMim::new(&mim_content);
 
     // Test basic properties
     assert_eq!(mim.get_lang(), "bn");
-    assert_eq!(mim.get_name(), "khipro");
+    assert_eq!(mim.get_name(), "avro");
     assert!(!mim.get_title().is_empty(), "Title should not be empty");
 
     // Test some basic conversions

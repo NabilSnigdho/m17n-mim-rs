@@ -1,10 +1,10 @@
+mod context;
 mod im_info;
 mod lisp_parser;
-mod context;
 
+use crate::context::*;
 use crate::im_info::*;
 use crate::lisp_parser::*;
-use crate::context::*;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -45,9 +45,11 @@ impl M17nMim {
     #[wasm_bindgen]
     pub fn convert(&self, input: &str) -> String {
         let mut ctx = Context::new(
-            self.im_info.states.first()
+            self.im_info
+                .states
+                .first()
                 .map(|s| s.name.clone())
-                .unwrap_or_else(|| "init".to_string())
+                .unwrap_or_else(|| "init".to_string()),
         );
 
         let input_chars: Vec<char> = input.chars().collect();

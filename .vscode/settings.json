@@ -25,5 +25,9 @@
         "serde",
         "titlecase",
         "toupper"
-    ]
+    ],
+    "editor.formatOnType": true,
+    "[autolisp]": {
+        "editor.wordSeparators": "`|;'\",()"
+    }
 }

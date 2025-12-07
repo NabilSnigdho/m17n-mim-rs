@@ -5,8 +5,8 @@ Parser and converter for the M17N .mim input method format.
 ## Implementation status
 
 - [x] Basic insert, shift actions support
-- [x] delete, move, set, commit, cond actions support
-- [x] Surrounding text support
+- [ ] delete, move, set, cond actions support
+- [ ] Surrounding text support
 - [ ] Global variables and commands
 - [ ] Custom commands, macros support
 - [x] Convert input string
