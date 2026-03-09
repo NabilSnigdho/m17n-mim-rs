@@ -1,6 +1,6 @@
 [package]
 name = "m17n_mim_rs"
-version = "0.1.1"
+version = "0.1.3"
 edition = "2024"
 description = "Parser and converter for the M17N .mim input method format."
 license = "LGPL-2.1-or-later"
