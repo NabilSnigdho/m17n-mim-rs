@@ -236,7 +236,13 @@ impl Context {
                 "@>" => Some(isize::MAX),
                 "@-" => Some(-1),
                 "@+" => Some(1),
-                _ => None,
+                _ => {
+                    if s.starts_with("@-") || s.starts_with("@+") {
+                        Some(s[1..].parse().unwrap_or(0))
+                    } else {
+                        None
+                    }
+                },
             },
             Element::Int(i) => Some(*i as isize),
             _ => None,
