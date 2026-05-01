@@ -1,6 +1,6 @@
 {
   "name": "m17n-mim-wasm",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Parser and converter for the M17N .mim input method format.",
   "keywords": [
     "m17n"

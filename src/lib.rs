@@ -1,15 +1,15 @@
 mod context;
-mod im_info;
+mod m17n_input_method;
 mod lisp_parser;
 
 use crate::context::*;
-use crate::im_info::*;
+use crate::m17n_input_method::*;
 use crate::lisp_parser::*;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub struct M17nMim {
-    im_info: ImInfo,
+    im_info: M17nInputMethod,
 }
 
 #[wasm_bindgen]
