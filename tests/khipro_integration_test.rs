@@ -5,7 +5,7 @@ use std::error::Error;
 
 async fn get_remote_test_cases() -> Result<Vec<(String, String)>, Box<dyn Error>> {
     let url =
-        "https://raw.githubusercontent.com/KhiproTeam/khipro-testcases/refs/heads/main/khipro-testcases.csv";
+        "https://raw.githubusercontent.com/KhiproTeam/khipro-testcases/refs/heads/main/khipro-testcases.tsv";
 
     let client = reqwest::Client::new();
 
@@ -17,7 +17,9 @@ async fn get_remote_test_cases() -> Result<Vec<(String, String)>, Box<dyn Error>
 
     let content = response.text().await?;
 
-    let mut rdr = csv::Reader::from_reader(std::io::Cursor::new(content));
+    let mut rdr = csv::ReaderBuilder::new()
+        .delimiter(b'\t')
+        .from_reader(std::io::Cursor::new(content));
 
     let mut cases = Vec::new();
 
